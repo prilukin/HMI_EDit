@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HMI JSON Editor</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div id="left">
+  <h3>Pages</h3>
+  <div id="pages"></div>
+  <div style="padding:8px;border-top:1px solid #333">
+    <button id="addPage" style="width:100%">+ Page</button>
+  </div>
+</div>
+
+<div id="center">
+  <div id="toolbar">
+    <button id="loadBtn">Load JSON</button>
+    <input type="file" id="fileInput" accept=".json,.ehmi,.txt" hidden>
+    <button id="saveBtn">Save JSON</button>
+    <button id="uploadBtn">Upload to display</button>
+    <button id="modeBtn">Debug mode</button>
+    <span style="width:12px"></span>
+    <select id="addType">
+      <option value="button">button</option>
+      <option value="text">text</option>
+      <option value="number">number</option>
+      <option value="dualstate">dualstate</option>
+      <option value="progress">progress</option>
+      <option value="slider">slider</option>
+      <option value="gauge">gauge</option>
+      <option value="checkbox">checkbox</option>
+      <option value="switch">switch</option>
+      <option value="shape">shape</option>
+      <option value="icon">icon</option>
+      <option value="timer">timer</option>
+      <option value="variable">variable</option>
+    </select>
+    <button id="addComp">+ Component</button>
+    <button id="delCompBtn">− Component</button>
+    <span style="width:12px"></span>
+    <label style="display:flex;align-items:center;gap:4px"><input type="checkbox" id="snap"> snap 5px</label>
+    <span style="width:12px"></span>
+    <span id="pageSizeLabel"></span>
+  </div>
+  <div id="canvas-wrap">
+    <div id="canvas"></div>
+  </div>
+  <div id="status">Ready</div>
+  <div id="debugPanel" style="display:none; padding:8px; background:#2d2d30; border-top:1px solid #333;">
+    <h3 style="margin:0 0 6px">Debug</h3>
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <button id="monitorOpen">Open monitor</button>
+      <button id="monitorClose">Close monitor</button>
+    </div>
+    <div id="debugLog" style="height:120px; overflow-y:auto; background:#1e1e1e; border:1px solid #444; padding:6px; font-family:monospace; font-size:12px; margin-bottom:6px;"></div>
+    <div style="display:flex; gap:6px;">
+      <input id="debugCmd" placeholder='e.g. page 1 or tPitch.txt="5"' style="flex:1;">
+      <button id="debugSend">Send</button>
+      <button id="debugClear">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div id="right">
+  <div class="tab-bar">
+    <button data-tab="props" class="active">Properties</button>
+    <button data-tab="device">Device</button>
+    <button data-tab="bindings">Bindings</button>
+    <button data-tab="arduino">Arduino</button>
+  </div>
+
+  <div class="tab-content active" id="tab-props">
+    <div id="props"><div class="hint">Select a component on the canvas.</div></div>
+  </div>
+
+  <div class="tab-content" id="tab-device">
+    <h3>Device</h3>
+    <label>id<input data-dev="id"></label>
+    <label>name<input data-dev="name"></label>
+    <label>mcu<input data-dev="mcu"></label>
+    <div class="row2">
+      <label>width<input type="number" data-dev="width"></label>
+      <label>height<input type="number" data-dev="height"></label>
+    </div>
+    <h3>Display</h3>
+    <label>bus<input data-dev="bus"></label>
+    <label>driver<input data-dev="driver"></label>
+    <h3>Touch</h3>
+    <label>driver<input data-touch="driver"></label>
+    <h3>Host UART</h3>
+    <div class="row2">
+      <label>tx<input type="number" data-uart="tx"></label>
+      <label>rx<input type="number" data-uart="rx"></label>
+    </div>
+    <label>baud<input type="number" data-uart="baud"></label>
+  </div>
+
+  <div class="tab-content" id="tab-bindings">
+    <h3>Bindings</h3>
+    <div id="bindings"></div>
+    <button id="addBinding" style="width:100%;margin-top:6px">+ Binding</button>
+  </div>
+
+  <div class="tab-content" id="tab-arduino">
+    <h3>Arduino</h3>
+    <label>includes<textarea data-ard="includes"></textarea></label>
+    <label>globals<textarea data-ard="globals"></textarea></label>
+    <label>setup<textarea data-ard="setup"></textarea></label>
+    <label>loop<textarea data-ard="loop"></textarea></label>
+  </div>
+</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
